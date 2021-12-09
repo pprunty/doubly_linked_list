@@ -216,8 +216,8 @@ After Filtering
 
 ```
 
-However, we can filter the data in the linked list to remove any square matrices in the linked list that are
-no bigger than 4 x 4:
+However, we can filter the data in the linked list to remove any square matrices in the linked list that are bigger than
+4 x 4:
 
 ```shell
 ./main -i data.txt -n 0 -x 4
