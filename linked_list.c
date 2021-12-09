@@ -28,8 +28,8 @@ int append_new_node(List *const inlist, const int N) {
         inlist->head = new_node;
         inlist->tail = new_node;
     }
-    /* If the head of the list isn't empty, i.e there exists a head, then add a new node to the tail, the previous to this node then
-       points to the tail, and the tail points to the new node */
+        /* If the head of the list isn't empty, i.e there exists a head, then add a new node to the tail, the previous to this node then
+           points to the tail, and the tail points to the new node */
     else {
         // The tail (the last item in the list) points to the next item which is our new node
         inlist->tail->next = new_node; //<! Same as (*new.node).prev = (*inlist).tail
@@ -76,14 +76,13 @@ void read_list_from_file(const char *const filename, List *mylist) {
     if (fp == NULL) {
         fprintf(stderr, "Failed to open file 'data.txt'.\n");
         exit(1);
-    }
-    else {
+    } else {
 
         // Get the first line of the data, and continue to do so, until there are no more lines
         while (fgets(data_to_read, sizeof(data_to_read) /* file_size */, fp) != NULL) {
 
             // Let n be the first integer on each line
-            int n = strtol(data_to_read, &stopstring,10);
+            int n = strtol(data_to_read, &stopstring, 10);
             /*^ Note above: String to long int function takes our data, a pointer to the next string (the next int),
              * and a base number as arguments */
 
@@ -93,7 +92,8 @@ void read_list_from_file(const char *const filename, List *mylist) {
             //Iterate through each element of the matrix and set its value to the next floating point number in the data
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    mylist->tail->data[i][j] = strtof(stopstring, &stopstring); //<! String to float takes the next value
+                    mylist->tail->data[i][j] = strtof(stopstring,
+                                                      &stopstring); //<! String to float takes the next value
                 }
             }
         }
@@ -116,25 +116,25 @@ void remove_node(List *in, Node *node) {
         in->head = NULL;
     }
 
-    /* Case 2. The node is the tail, and we want to remove it from the list, then the previous node in the list
-     * becomes the tail and the node next to the new tail is empty (since the previous node to the one we wanted to
-     * remove is now the tail) */
+        /* Case 2. The node is the tail, and we want to remove it from the list, then the previous node in the list
+         * becomes the tail and the node next to the new tail is empty (since the previous node to the one we wanted to
+         * remove is now the tail) */
     else if (node == in->tail) {
         in->tail = node->prev;          //<! Previous node is now the tail
         node->prev->next = NULL;        //<! The next node to the previous node is now empty
     }
 
-    /* Case 3. The node is the head, and we want to remove it, then the next node in the list becomes our head, and
-     * the previous node to the the new head is empty (since the next node to the one we wanted to remove is now the
-     * head) */
+        /* Case 3. The node is the head, and we want to remove it, then the next node in the list becomes our head, and
+         * the previous node to the the new head is empty (since the next node to the one we wanted to remove is now the
+         * head) */
     else if (node == in->head) {
         in->head = node->next;
         node->next->prev = NULL;
     }
 
-    /* Case 4. If the node is not the head, and not the tail, i.e it is somewhere in the middle of the list, then the
-     * previous node points to the next node, which is the node next to the one we wanted to remove. The next node now
-     * points to the previous node which is the previous node to the one we wanted to remove. */
+        /* Case 4. If the node is not the head, and not the tail, i.e it is somewhere in the middle of the list, then the
+         * previous node points to the next node, which is the node next to the one we wanted to remove. The next node now
+         * points to the previous node which is the previous node to the one we wanted to remove. */
     else if (node != in->head && node != in->tail) {
         node->prev->next = node->next;
         node->next->prev = node->prev;
